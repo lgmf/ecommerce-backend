@@ -1,0 +1,27 @@
+{
+  "name": "ecommerce-backend",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "",
+  "main": "./src/server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js",
+    "generate:db": "node ./src/data/generateDb.js"
+  },
+  "keywords": [],
+  "author": "Luiz Guilherme Mendes Ferrari",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "dependencies": {
+    "dotenv": "8.2.0",
+    "json-server": "0.16.1"
+  },
+  "devDependencies": {
+    "eslint": "6.8.0",
+    "faker": "4.1.0",
+    "nodemon": "2.0.2"
+  }
+}

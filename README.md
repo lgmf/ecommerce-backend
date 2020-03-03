@@ -26,13 +26,14 @@ npm run dev
 ```bash
 /health-check
 /sign-in
-/users
 /products
 /orders
 ```
 
-> Follow the [Routes Documentation](https://github.com/typicode/json-server#routes) for more details
-
 ### References
 
 >[Faker JS](https://github.com/marak/Faker.js/)
+
+### Deploy
+
+>[Heroku](https://lgmf-ecommerce-backend.herokuapp.com/)

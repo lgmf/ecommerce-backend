@@ -4,6 +4,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 module.exports = {
-  serverPort: process.env.SERVER_PORT,
+  port: process.env.PORT,
   productsCount: process.env.PRODUCT_COUNT
 };

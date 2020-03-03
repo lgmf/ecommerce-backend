@@ -12,6 +12,8 @@ middlewares.registerOn(server);
 // Register custom routes
 routes.registerOn(server);
 
-server.listen(environment.serverPort, () => {
-  console.log(`JSON Server is running at port ${environment.serverPort}`);
+server.set("port", environment.port || 80);
+
+server.listen(server.get("port"), () => {
+  console.log(`JSON Server is running at port ${server.get("port")}`);
 });

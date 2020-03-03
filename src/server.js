@@ -1,29 +1,16 @@
-const jsonServer = require("json-server");
+const express = require("express");
 
 const environment = require("./config/environment");
+const middlewares = require("./middlewares");
+const routes = require("./routes");
 
-const auth = require("./middlewares/auth");
+const server = express();
 
-const signIn = require("./routes/signIn");
-const healthCheck = require("./routes/healthCheck");
+// Register middlewares
+middlewares.registerOn(server);
 
-const server = jsonServer.create();
-const router = jsonServer.router("./db.json");
-const defaultMiddlewares = jsonServer.defaults();
-
-// Set default middlewares (logger, static, cors, no-cache)
-server.use(defaultMiddlewares);
-
-// Custom middlewares
-server.use(jsonServer.bodyParser);
-server.use(auth);
-
-// Custom routes
-server.get("/health-check", healthCheck);
-server.post("/sign-in", signIn);
-
-// Register the router
-server.use(router);
+// Register custom routes
+routes.registerOn(server);
 
 server.listen(environment.serverPort, () => {
   console.log(`JSON Server is running at port ${environment.serverPort}`);

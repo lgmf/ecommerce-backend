@@ -1,18 +1,14 @@
-const userService = require("../services/user");
-
-const { productsCount } = require("../config/environment");
-
 const faker = require("faker");
 
-const fs = require("fs");
+const environment = require("../config/environment");
+const db = require("../config/nedb");
 
-const getProducts = () => {
-  return Array.from({ length: productsCount }).map(() => {
+const createMockProducts = (count) => {
+  return Array.from({ length: count }).map(() => {
     return {
       color: faker.internet.color(),
       department: faker.commerce.department(),
       description: faker.commerce.productName(),
-      id: faker.random.uuid(),
       image: {
         xs: "https://via.placeholder.com/250",
         sm: "https://via.placeholder.com/400",
@@ -27,25 +23,48 @@ const getProducts = () => {
   });
 };
 
-const getOrders = (users) => {
-  return users.reduce((result, user) => {
-    return {
-      ...result,
-      [user.token]: []
-    };
-  }, {});
-};
+const users = [
+  {
+    token: "7b54adc5-1604-4254-83b3-0047b3934a03",
+    firstName: "Monique",
+    lastName: "Hoppe",
+    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/ssiskind/128.jpg",
+    password: "4Tfw7YLa66G1nHm",
+    username: "shaun63"
+  },
+  {
+    token: "a5d9bb37-150f-4a6c-b066-6378bd94fc73",
+    firstName: "Hardy",
+    lastName: "O'Keefe",
+    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/salvafc/128.jpg",
+    password: "W_uX2xnYhCP4Blo",
+    username: "anais_reinger67"
+  },
+  {
+    token: "98c7ba16-4bd0-448a-80e6-866e579926c6",
+    firstName: "Adaline",
+    lastName: "Smith",
+    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/larrybolt/128.jpg",
+    password: "l9_Qk3AwP9olPsK",
+    username: "bret_nitzsche"
+  }
+];
 
-const users = userService.list();
+users.forEach(user => db.users.insert(user, function (err, doc) {
+  if (err) {
+    console.warn("USERS COLLECTION ERROR ====>", err);
+    return;
+  }
+  console.warn("USER INSERTED ====>", doc);
+}));
 
-const products = getProducts();
 
-const orders = getOrders(users);
+const products = createMockProducts(environment.productsCount);
 
-const dbData = {
-  users,
-  products,
-  orders,
-};
-
-fs.writeFileSync("db.json", JSON.stringify(dbData));
+products.forEach(product => db.products.insert(product, function (err, doc) {
+  if (err) {
+    console.warn("PRODUCTS COLLECTION ERROR ====>", err);
+    return;
+  }
+  console.warn("PRODUCT INSERTED ====>", doc);
+}));

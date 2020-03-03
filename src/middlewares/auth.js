@@ -1,19 +1,22 @@
-const userService = require("../services/user");
-const userDTO = require("../dto/user");
+const protectedRoutes = ["/orders"];
 
 module.exports = (req, res, next) => {
-  const { token } = req.headers;
+  const { originalUrl } = req;
 
-  if (!token) {
+  if (!protectedRoutes.includes(originalUrl)) {
     next();
     return;
   }
 
-  const userModel = userService.getByToken(token);
-
-  if (userModel) {
-    const user = userDTO(userModel);
-    req.currentUser = user;
+  if (!req.currentUser) {
+    res.status(401).json({
+      errors: [
+        {
+          code: "UNAUTHORIZED"
+        }
+      ]
+    });
+    return;
   }
 
   next();

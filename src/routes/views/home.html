@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECOMMERCE - Backend</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <style type="text/css">
+    pre {
+      margin-bottom: 12px;
+    }
+
+    .main {
+      display: grid;
+      row-gap: 16px;
+      padding: 32px 64px;
+    }
+
+    .main>.subtitle {
+      font-weight: normal;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="main">
+    <h1 class="title is-2">ECOMMERCE - Back end</h1>
+    <h4 class="subtitle">A simple API to return that has authentication, products list, and register orders.</h4>
+
+    <div class="card">
+      <div class="card-content">
+        <p class="title is-4">/health-check [GET]</p>
+        <p class="subtitle is-6">Returns a response only to notify that the server is up</p>
+
+        <article class="message">
+          <div class="message-header">
+            <p>Usage</p>
+          </div>
+          <div class="message-body">
+            <p>/health-check</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <p class="title is-4">/products [GET]</p>
+        <p class="subtitle is-6">Returns a paginated products list</p>
+
+        <article class="message">
+          <div class="message-header">
+            <p>Query Params</p>
+          </div>
+          <div class="message-body">
+            <pre>page [number] [default=1]</pre>
+            <pre>limit [number] [default=10]</pre>
+          </div>
+        </article>
+
+        <article class="message">
+          <div class="message-header">
+            <p>Usage</p>
+          </div>
+          <div class="message-body">
+            <pre>/products?page=1&limit=10</pre>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <p class="title is-4">/sign-in [POST]</p>
+        <p class="subtitle is-6">Returns the user according the given credentials</p>
+
+        <article class="message">
+          <div class="message-header">
+            <p>Body Payload</p>
+          </div>
+          <div class="message-body">
+            <pre>Object < username [string], password [string] ></pre>
+          </div>
+        </article>
+
+        <article class="message">
+          <div class="message-header">
+            <p>Errors</p>
+          </div>
+          <div class="message-body">
+            <pre>[401] AUTHENTICATION_FAILED</pre>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <p class="title is-4">/orders [GET]</p>
+        <p class="subtitle is-6">Returns all orders of a user</p>
+
+        <article class="message">
+          <div class="message-header">
+            <p>Headers</p>
+          </div>
+          <div class="message-body">
+            <pre>Authentication [pattern "Bearer: < token >"]</pre>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <p class="title is-4">/orders [POST]</p>
+        <p class="subtitle is-6">Save a order for a user</p>
+
+        <article class="message">
+          <div class="message-header">
+            <p>Headers</p>
+          </div>
+          <div class="message-body">
+            <pre>Authentication [pattern "Bearer: < token >"]</pre>
+          </div>
+        </article>
+
+        <article class="message">
+          <div class="message-header">
+            <p>Body Payload</p>
+          </div>
+          <div class="message-body">
+            <pre>items [Array< Object< name [string], price [number], quantity [number] > >]</pre>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

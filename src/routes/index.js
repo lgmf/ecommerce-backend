@@ -1,10 +1,13 @@
+const HealthCheckController = require("./healthCheck");
+const HomeController = require("./home");
+const OrdersController = require("./orders");
 const ProductsController = require("./products");
 const SignInController = require("./signIn");
-const HealthCheckController = require("./healthCheck");
-const OrdersController = require("./orders");
 
 module.exports = {
   registerOn: (server) => {
+    server.get("/", HomeController);
+
     server.get("/products", ProductsController);
 
     server.get("/health-check", HealthCheckController);
